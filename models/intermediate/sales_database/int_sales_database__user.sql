@@ -6,7 +6,7 @@ SELECT
  SUM(total_order_amount) AS total_amount_spent,
  SUM(total_items) as total_items,
  SUM(total_distinct_items) as total_distinct_items,
- COUNT(DISTINCT order_id) AS total_orders
+ COUNT(DISTINCT order_id_y) AS total_orders
 FROM {{ ref('int_sales_database__order') }} 
 GROUP BY
  user_id,
