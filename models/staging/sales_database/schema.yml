@@ -43,12 +43,12 @@ models:
   - name: stg_sales_database__order_item
     description: "This model contains information about each item included in an order, including its price, quantity, and shipping cost."
     columns:
-      - name: order_item_id
+      - name: order_item_id_y
         description: "Primary key, unique identifier for each order item."
         tests:
             - unique
             - not_null
-      - name: order_id
+      - name: order_id_y
         description: "Foreign key linking the order item to the corresponding order."
         tests:
           - relationships:

@@ -21,7 +21,7 @@ GROUP BY order_month
 ), monthly_orders_recap AS (
 
 
-SELECT DATE_TRUNC(order_date,month) AS order_months,
+SELECT DATE_TRUNC(order_date,month) AS order_month,
 COUNT(order_id) AS total_monthly_orders
 FROM {{ source('dataset_fil_rouge', 'order')}}
 GROUP BY order_month
@@ -31,7 +31,7 @@ GROUP BY order_month
 
 
 SELECT shipping_cost
-FROM sales_database.order_item
+FROM {{ source('dataset_fil_rouge', 'order_item')}}
 WHERE price > 7000
 )
 SELECT u.order_month,

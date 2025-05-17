@@ -1,15 +1,15 @@
 with order_item_grouped_by_order as (
 
-select order_id,
+select order_id_y,
     user_id,
     order_status,
     order_created_at,
     order_approved_at,
-    sum(total_order_item_amount) as total_order_amount,
-    sum(item_quantity) as total_items,
-    count(distinct product_id) as total_distinct_items
+    sum(total_order_item_amount_y) as total_order_amount,
+    sum(item_quantity_y) as total_items,
+    count(distinct product_id_y) as total_distinct_items
 from {{ ref('int_sales_database__order_item') }}
-group by order_id,
+group by order_id_y,
     user_id,
     order_status,
     order_created_at,
@@ -25,7 +25,7 @@ group by order_id
 
 )
 
-select oi.order_id,
+select oi.order_id_y,
     oi.user_id,
     oi.order_status,
     u.user_city,
@@ -38,5 +38,5 @@ select oi.order_id,
     coalesce(oi.total_items,0) as total_items,
     coalesce(oi.total_distinct_items,0) as total_distinct_items
 from order_item_grouped_by_order as oi 
-left join feedback_grouped_by_order as f on f.order_id = oi.order_id
+left join feedback_grouped_by_order as f on f.order_id = oi.order_id_y
 left join {{ ref('stg_sales_database__user' )}} as u on u.user_id = oi.user_id
